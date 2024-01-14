@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "8df15f4b-bcd4-42a8-8740-aa0f3f4b81a3",
+		"name": "BestWallet",
+		"description": "Users can Signup/Login into the application and maintain their accounts and transactions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"pm.globals.set(\"bearer_token\", response.jwt);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"demo@user.com\",\n    \"password\": \"The-Password-123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "The existing users can login to the system using this API.\n\nRequest Parameters:\n\n- Email\n    \n    - Mandatory\n        \n    - String\n        \n- Password\n    \n    - Mandatory\n        \n    - String"
+					},
+					"response": []
+				},
+				{
+					"name": "sign-up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Demo User\",\n    \"lastName\": \"Last Name\",\n    \"email\": \"demo@user.com\",\n    \"password\": \"The-Password-123\",\n    \"address\": \"Malta\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sign-up",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sign-up"
+							]
+						},
+						"description": "New users can sign-up to the system using this endpoint.\n\nRequest Parameters:\n\n- firstName - First name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- lastName - Last name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- email - Email ID of the user\n    \n    - Mandatory\n        \n    - String\n        \n- password\n    \n    - Mandaotory\n        \n    - String\n        \n- address\n    \n    - Optional\n        \n    - String"
+					},
+					"response": []
+				}
+			],
+			"description": "This API is used to by users for Sign-up or Login into the system."
+		},
+		{
+			"name": "Logout",
+			"item": [
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This API is used to logout from the system."
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "/um/get-users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/um/get-users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"um",
+								"get-users"
+							]
+						},
+						"description": "This API fetches all the users from the application."
+					},
+					"response": []
+				},
+				{
+					"name": "/um/create-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"First_Name_1\",\n    \"lastName\": \"Last_Name_1\",\n    \"email\": \"addr1@mail.com\",\n    \"password\": \"SamplePassword1\",\n    \"dataOfBirth\": \"31-10-2023\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/um/create-user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"um",
+								"create-user"
+							]
+						},
+						"description": "This API is used to create a new user into the system.\n\nRequest Parameters:\n\n- firstName - First name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- lastName - Last name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- email - Email ID of the user\n    \n    - Mandatory\n        \n    - String\n        \n- password\n    \n    - Mandaotory\n        \n    - String\n        \n- address\n    \n    - Optional\n        \n    - String"
+					},
+					"response": []
+				},
+				{
+					"name": "/um/delete-user/{userId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/um/delete-user/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"um",
+								"delete-user",
+								"1"
+							]
+						},
+						"description": "This API is used to delete a specific user from the system."
+					},
+					"response": []
+				}
+			],
+			"description": "The section provides API related to user operations."
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "/am/add-account/{userId}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountNumber\": 128000002,\n    \"bankName\": \"some-bank-name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/am/add-account/{userId}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"am",
+								"add-account",
+								"{userId}"
+							]
+						},
+						"description": "This API is used to add account details for a specific user.\n\nRequest Parameters:\n\n- accountNumber\n    - Mandatory\n    - Integer\n- bankName\n    - Mandatory\n    - String"
+					},
+					"response": []
+				},
+				{
+					"name": "/am/add-self-account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountNumber\": 128000001,\n    \"bankName\": \"some-bank-name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/am/add-self-account",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"am",
+								"add-self-account"
+							]
+						},
+						"description": "This API is used to create account for the logged in user.\n\nRequest Parameters:\n\n- accountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- bankName\n    \n    - Mandatory\n        \n    - String"
+					},
+					"response": []
+				},
+				{
+					"name": "/am/delete-account/{accId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/am/delete-account/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"am",
+								"delete-account",
+								"1"
+							]
+						},
+						"description": "This API is used to delete specific account number."
+					},
+					"response": []
+				},
+				{
+					"name": "/am/get-accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/am/get-accounts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"am",
+								"get-accounts"
+							]
+						},
+						"description": "This API is used to fetch all accounts available in the system."
+					},
+					"response": []
+				},
+				{
+					"name": "/am/get-personal-account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/am/get-personal-account",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"am",
+								"get-personal-account"
+							]
+						},
+						"description": "This API is used to fetch all the personal accounts of the logged in user."
+					},
+					"response": []
+				},
+				{
+					"name": "/am/get-account/{accountId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/am/get-account/{accountId}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"am",
+								"get-account",
+								"{accountId}"
+							]
+						},
+						"description": "This API is used to fetch the account details of a specific account number."
+					},
+					"response": []
+				},
+				{
+					"name": "/am/update-account/{accountId}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/am/update-account/{accountId}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"am",
+								"update-account",
+								"{accountId}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This section provides API related to Account management"
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "/tm/get-transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tm/get-transactions",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tm",
+								"get-transactions"
+							]
+						},
+						"description": "This API fetches all the transactions performed in the system."
+					},
+					"response": []
+				},
+				{
+					"name": "/tm/deposit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountNumber\": 128000001,\n    \"amount\": 1001\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tm/deposit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tm",
+								"deposit"
+							]
+						},
+						"description": "This API is used to deposit funds into the specified account.\n\nRequest Parameters:\n\n- accountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- amount\n    \n    - Mandatory\n        \n    - Integer"
+					},
+					"response": []
+				},
+				{
+					"name": "/tm/withdraw",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fromAccountNumber\": 128000001,\n    \"amount\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tm/withdraw",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tm",
+								"withdraw"
+							]
+						},
+						"description": "This API is used to deposit funds into the specified account.\n\nRequest Parameters:\n\n- accountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- amount\n    \n    - Mandatory\n        \n    - Integer"
+					},
+					"response": []
+				},
+				{
+					"name": "/tm/self-transfer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fromAccountNumber\": 128000001,\n    \"toAccountNumber\": 128000002,\n    \"amount\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tm/self-transfer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tm",
+								"self-transfer"
+							]
+						},
+						"description": "This API is used to transfer funds between accounts owned by logged in user.\n\nRequest Parameters:\n\n- fromAccountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- toAccountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- amount\n    \n    - Mandatory\n        \n    - Integer"
+					},
+					"response": []
+				}
+			],
+			"description": "This sections provides all the APIs related to Transaction management."
+		}
+	]
+}
