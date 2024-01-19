@@ -1,15 +1,17 @@
 package controllers
 
 import (
+	"encoding/json"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/sowjanyac93/bestWallet/modules/initializers"
 	"github.com/sowjanyac93/bestWallet/modules/models"
 )
 
+// GetAccounts fetches all accounts
 func GetAccounts(c *gin.Context) {
 	accounts := []models.Account{}
 	result := initializers.DB.Find(&accounts)
@@ -18,10 +20,21 @@ func GetAccounts(c *gin.Context) {
 			"Error": "Failed to fetch accounts",
 		})
 	} else {
-		c.JSON(http.StatusOK, &accounts)
+		// Marshal the accounts using custom MarshalJSON
+		serializedAccounts, err := json.Marshal(accounts)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"Error": "Failed to marshal accounts",
+			})
+			return
+		}
+
+		// Respond with the marshaled data
+		c.Data(http.StatusOK, "application/json", serializedAccounts)
 	}
 }
 
+// GetPersonalAccount fetches the accounts for the authenticated user
 func GetPersonalAccount(c *gin.Context) {
 	// Retrieve the user from the Gin context
 	user, exists := c.Get("user")
@@ -41,24 +54,23 @@ func GetPersonalAccount(c *gin.Context) {
 		return
 	}
 
-	var accountData []gin.H
-	for _, acc := range accounts {
-		accountData = append(accountData, gin.H{
-			"accountNo": acc.AccountNumber,
-			"bankName":  acc.BankName,
-			"balance":   acc.Balance,
-			"status":    acc.Status,
+	// Marshal the accounts using custom MarshalJSON
+	serializedAccounts, err := json.Marshal(accounts)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to marshal accounts",
 		})
+		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"account_data": accountData,
-	})
+	// Respond with the marshaled data
+	c.Data(http.StatusOK, "application/json", serializedAccounts)
 }
 
+// AddAccountForUserId adds an account for the specified user ID
 func AddAccountForUserId(c *gin.Context) {
 	// Retrieve the userId from the URL parameters
-	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	userID, err := uuid.Parse(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"Error": "Invalid user ID",
@@ -75,7 +87,7 @@ func AddAccountForUserId(c *gin.Context) {
 	}
 
 	// Set the user ID for the account
-	account.UserId = int(userId)
+	account.UserId = userID
 
 	// Create the account in the database
 	result := initializers.DB.Create(&account)
@@ -89,15 +101,20 @@ func AddAccountForUserId(c *gin.Context) {
 	// Simulate KYC process
 	go simulateKYCProcess(account.ID, c)
 
-	c.JSON(http.StatusOK, gin.H{
-		"accountNo": account.AccountNumber,
-		"bankName":  account.BankName,
-		"balance":   account.Balance,
-		"message":   "Account created successfully",
-	})
+	// Marshal the account using custom MarshalJSON
+	serializedAccount, err := json.Marshal(account)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to marshal account",
+		})
+		return
+	}
+
+	// Respond with the marshaled data
+	c.Data(http.StatusOK, "application/json", serializedAccount)
 }
 
-// Function to add an account for the authenticated user
+// AddSelfAccount adds an account for the authenticated user
 func AddSelfAccount(c *gin.Context) {
 	// Retrieve the user from the Gin context
 	user, exists := c.Get("user")
@@ -118,7 +135,7 @@ func AddSelfAccount(c *gin.Context) {
 	}
 
 	// Set the user ID for the account
-	account.UserId = int(userID)
+	account.UserId = userID
 
 	// Create the account in the database
 	result := initializers.DB.Create(&account)
@@ -132,26 +149,74 @@ func AddSelfAccount(c *gin.Context) {
 	// Simulate KYC process
 	go simulateKYCProcess(account.ID, c)
 
-	c.JSON(http.StatusOK, gin.H{
-		"accountNo": account.AccountNumber,
-		"bankName":  account.BankName,
-		"balance":   account.Balance,
-		"message":   "Account created successfully",
-	})
+	// Marshal the account using custom MarshalJSON
+	serializedAccount, err := json.Marshal(account)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to marshal account",
+		})
+		return
+	}
+
+	// Respond with the marshaled data
+	c.Data(http.StatusOK, "application/json", serializedAccount)
 }
 
+// DeleteAccount deletes an account
 func DeleteAccount(c *gin.Context) {
-	var account models.Account
-	result := initializers.DB.Where("id = ?", c.Param("id")).Delete(&account)
+	accountID := c.Param("id")
+
+	// Attempt to delete the account
+	result := initializers.DB.Where("id = ?", accountID).Delete(&models.Account{})
+
 	if result.Error != nil {
+		// Database error
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"Error": "Failed to delete account",
 		})
-	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "account deleted successfully",
-		})
+		return
 	}
+
+	if result.RowsAffected == 0 {
+		// Account not found
+		c.JSON(http.StatusNotFound, gin.H{
+			"Error": "Account not found",
+		})
+		return
+	}
+
+	// Account deleted successfully
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Account deleted successfully",
+	})
+}
+
+// Fetches details for particular AccountID
+func GetAccountDetails(c *gin.Context) {
+	accountID := c.Param("id")
+
+	// Fetch the account with the specified accountId
+	var account models.Account
+	result := initializers.DB.Where("id = ?", accountID).First(&account)
+
+	if result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"Error": "Failed to fetch account details",
+		})
+		return
+	}
+
+	// Marshal the account using custom MarshalJSON
+	serializedAccount, err := account.MarshalJSON()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to marshal account details",
+		})
+		return
+	}
+
+	// Respond with the marshaled data
+	c.Data(http.StatusOK, "application/json", serializedAccount)
 }
 
 // Simulate KYC process

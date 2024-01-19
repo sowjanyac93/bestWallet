@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
 	"time"
@@ -10,6 +11,7 @@ import (
 	"github.com/sowjanyac93/bestWallet/modules/models"
 )
 
+// DepositAmount handles the deposit operation
 func DepositAmount(c *gin.Context) {
 	var body struct {
 		AccountNumber int
@@ -59,7 +61,7 @@ func DepositAmount(c *gin.Context) {
 	// Insert a record in the Transaction table
 	transaction := models.Transaction{
 		UserId:    userId,
-		AccountId: int(account.ID),
+		AccountId: uint(account.ID),
 		Flow:      "Deposit",
 		Amount:    body.Amount,
 		Details:   "Deposit operation",
@@ -76,13 +78,14 @@ func DepositAmount(c *gin.Context) {
 	tx.Commit()
 
 	// Simulate KYT process
-	go simulateKYTProcess(transaction.ID, c)
+	go simulateKYTProcess(int(transaction.ID), c)
 
 	c.JSON(http.StatusOK, gin.H{
 		"Message": "Deposit operation completed successfully",
 	})
 }
 
+// GetTransactions fetches all transactions
 func GetTransactions(c *gin.Context) {
 	transactions := []models.Transaction{}
 	result := initializers.DB.Find(&transactions)
@@ -90,11 +93,27 @@ func GetTransactions(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"Error": "Failed to fetch transactions",
 		})
-	} else {
-		c.JSON(http.StatusOK, &transactions)
+		return
 	}
+
+	// Marshal each transaction individually using custom MarshalJSON
+	serializedTransactions := make([]json.RawMessage, len(transactions))
+	for i, transaction := range transactions {
+		data, err := transaction.MarshalJSON()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"Error": "Failed to marshal transactions",
+			})
+			return
+		}
+		serializedTransactions[i] = data
+	}
+
+	// Respond with the marshaled data
+	c.JSON(http.StatusOK, serializedTransactions)
 }
 
+// WithdrawAmount handles the withdrawal operation
 func WithdrawAmount(c *gin.Context) {
 	var body struct {
 		FromAccountNumber int
@@ -151,7 +170,7 @@ func WithdrawAmount(c *gin.Context) {
 	// Insert a record in the Transaction table
 	transaction := models.Transaction{
 		UserId:    userId,
-		AccountId: int(account.ID),
+		AccountId: uint(account.ID),
 		Flow:      "Withdraw",
 		Amount:    body.Amount,
 		Details:   "Withdrawal operation",
@@ -168,13 +187,14 @@ func WithdrawAmount(c *gin.Context) {
 	tx.Commit()
 
 	// Simulate KYT process
-	go simulateKYTProcess(transaction.ID, c)
+	go simulateKYTProcess(int(transaction.ID), c)
 
 	c.JSON(http.StatusOK, gin.H{
 		"Message": "Withdraw operation completed successfully",
 	})
 }
 
+// SelfTransfer handles the self-transfer operation
 func SelfTransfer(c *gin.Context) {
 	var body struct {
 		FromAccountNumber int
@@ -223,7 +243,7 @@ func SelfTransfer(c *gin.Context) {
 		return
 	}
 
-	// Fetch the userId from the account
+	// Fetch the userId from the accounts
 	fromUserId := fromAccount.UserId
 	toUserId := toAccount.UserId
 
@@ -267,10 +287,10 @@ func SelfTransfer(c *gin.Context) {
 	// Insert a record in the Transaction table
 	transaction := models.Transaction{
 		UserId:    fromUserId,
-		AccountId: int(fromAccount.ID),
+		AccountId: uint(fromAccount.ID),
 		Flow:      "Self-transfer",
 		Amount:    body.Amount,
-		Details:   strconv.Itoa(toAccount.AccountNumber),
+		Details:   strconv.Itoa(int(toAccount.AccountNumber)),
 	}
 	if err := tx.Create(&transaction).Error; err != nil {
 		tx.Rollback()
@@ -284,7 +304,7 @@ func SelfTransfer(c *gin.Context) {
 	tx.Commit()
 
 	// Simulate KYT process
-	go simulateKYTProcess(transaction.ID, c)
+	go simulateKYTProcess(int(transaction.ID), c)
 
 	c.JSON(http.StatusOK, gin.H{
 		"Message": "Self-transfer operation completed successfully",
@@ -292,7 +312,7 @@ func SelfTransfer(c *gin.Context) {
 }
 
 // Simulate KYT process
-func simulateKYTProcess(transactionID uint, c *gin.Context) {
+func simulateKYTProcess(transactionID int, c *gin.Context) {
 	// Sleep for 60 seconds
 	time.Sleep(60 * time.Second)
 
@@ -301,6 +321,9 @@ func simulateKYTProcess(transactionID uint, c *gin.Context) {
 	if err := tx.Model(&models.Transaction{}).Where("id = ?", transactionID).Update("status", "Approved").Error; err != nil {
 		tx.Rollback()
 		// Handle error
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"Error": "Failed to update transaction status",
+		})
 		return
 	}
 	tx.Commit()

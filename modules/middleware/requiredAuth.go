@@ -18,6 +18,7 @@ func RequiredAuth(c *gin.Context) {
 
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
+		return
 	}
 
 	token, _ := jwt.Parse(jwtTokenStr, func(token *jwt.Token) (interface{}, error) {
@@ -31,11 +32,15 @@ func RequiredAuth(c *gin.Context) {
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
+		if !ok {
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
 
 		var user models.User
-		initializers.DB.First(&user, claims["sub"])
+		initializers.DB.First(&user, `"id" = ?`, claims["sub"])
 
-		if user.ID == 0 {
+		if user.ID.String() == "" {
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 

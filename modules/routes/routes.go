@@ -21,6 +21,7 @@ func Routes(router *gin.Engine) {
 		authGroup.DELETE("/am/delete-account/:id", controllers.DeleteAccount)
 		authGroup.GET("/am/get-accounts", controllers.GetAccounts)
 		authGroup.GET("/am/get-personal-account", controllers.GetPersonalAccount)
+		authGroup.GET("/am/get-account/:id", controllers.GetAccountDetails)
 
 		authGroup.POST("/um/create-user", controllers.CreateUser)
 		authGroup.DELETE("/um/delete-user/:id", controllers.DeleteUser)

@@ -46,7 +46,56 @@
 						},
 						"description": "The existing users can login to the system using this API.\n\nRequest Parameters:\n\n- Email\n    \n    - Mandatory\n        \n    - String\n        \n- Password\n    \n    - Mandatory\n        \n    - String"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"demo@user.com\",\n    \"password\": \"The-Password-123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDU2ODU2OTgsInN1YiI6ImNjNWNjNzRmLTYwMTctNGQzYi1hMTZhLWNjY2ZjMzc5YzM4ZiJ9.mRqhCMNtKJlXvYB46ZmLMHQIgalvQLnPaevDVDCsHps; Path=/; Max-Age=7200; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:34:58 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "204"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"jwt\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDU2ODU2OTgsInN1YiI6ImNjNWNjNzRmLTYwMTctNGQzYi1hMTZhLWNjY2ZjMzc5YzM4ZiJ9.mRqhCMNtKJlXvYB46ZmLMHQIgalvQLnPaevDVDCsHps\",\n    \"message\": \"Login successful\"\n}"
+						}
+					]
 				},
 				{
 					"name": "sign-up",
@@ -55,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Demo User\",\n    \"lastName\": \"Last Name\",\n    \"email\": \"demo@user.com\",\n    \"password\": \"The-Password-123\",\n    \"address\": \"Malta\"\n}",
+							"raw": "{\n    \"userName\": \"UserName_DemoUser\",\n    \"firstName\": \"Demo User\",\n    \"lastName\": \"Last Name\",\n    \"email\": \"demo@user.com\",\n    \"password\": \"The-Password-123\",\n    \"address\": \"Malta\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -73,7 +122,52 @@
 						},
 						"description": "New users can sign-up to the system using this endpoint.\n\nRequest Parameters:\n\n- firstName - First name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- lastName - Last name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- email - Email ID of the user\n    \n    - Mandatory\n        \n    - String\n        \n- password\n    \n    - Mandaotory\n        \n    - String\n        \n- address\n    \n    - Optional\n        \n    - String"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userName\": \"UserName_DemoUser\",\n    \"firstName\": \"Demo User\",\n    \"lastName\": \"Last Name\",\n    \"email\": \"demo@user.com\",\n    \"password\": \"The-Password-123\",\n    \"address\": \"Malta\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/sign-up",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"sign-up"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:34:48 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Account Created Successfully\"\n}"
+						}
+					]
 				}
 			],
 			"description": "This API is used to by users for Sign-up or Login into the system."
@@ -96,7 +190,47 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/logout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDU2Nzc5MTAsInN1YiI6IiJ9.n1Sn6ogFcPJVK00Q1Om9YkDm6vh4PLNPvWMmszyY3Mc; Path=/; Max-Age=0; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:35:10 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Logged Out Successfully\"\n}"
+						}
+					]
 				}
 			],
 			"description": "This API is used to logout from the system."
@@ -121,7 +255,44 @@
 						},
 						"description": "This API fetches all the users from the application."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/um/get-users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"um",
+										"get-users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:35:52 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "502"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Users fetched successfully\",\n    \"users\": [\n        {\n            \"id\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n            \"username\": \"UserName_DemoUser\",\n            \"email\": \"demo@user.com\",\n            \"address\": \"Malta\",\n            \"created_at\": \"2024-01-20 02:34:48.698292 +1100 AEDT\",\n            \"updated_at\": \"2024-01-20 02:34:48.698292 +1100 AEDT\"\n        },\n        {\n            \"id\": \"09b53e82-b5e6-4636-a9de-9da8a4c9306a\",\n            \"username\": \"UserName_FirstName\",\n            \"email\": \"addr1@mail.com\",\n            \"address\": \"Malta\",\n            \"created_at\": \"2024-01-20 02:35:38.707378 +1100 AEDT\",\n            \"updated_at\": \"2024-01-20 02:35:38.707378 +1100 AEDT\"\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "/um/create-user",
@@ -130,7 +301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"First_Name_1\",\n    \"lastName\": \"Last_Name_1\",\n    \"email\": \"addr1@mail.com\",\n    \"password\": \"SamplePassword1\",\n    \"dataOfBirth\": \"31-10-2023\"\n}",
+							"raw": "{\n    \"userName\": \"UserName_FirstName\",\n    \"firstName\": \"First_Name_1\",\n    \"lastName\": \"Last_Name_1\",\n    \"email\": \"addr1@mail.com\",\n    \"password\": \"SamplePassword1\",\n    \"address\": \"Malta\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -149,7 +320,53 @@
 						},
 						"description": "This API is used to create a new user into the system.\n\nRequest Parameters:\n\n- firstName - First name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- lastName - Last name of the user\n    \n    - Mandatory\n        \n    - String\n        \n- email - Email ID of the user\n    \n    - Mandatory\n        \n    - String\n        \n- password\n    \n    - Mandaotory\n        \n    - String\n        \n- address\n    \n    - Optional\n        \n    - String"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userName\": \"UserName_FirstName\",\n    \"firstName\": \"First_Name_1\",\n    \"lastName\": \"Last_Name_1\",\n    \"email\": \"addr1@mail.com\",\n    \"password\": \"SamplePassword1\",\n    \"address\": \"Malta\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/um/create-user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"um",
+										"create-user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:35:38 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "311"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User created successfully\",\n    \"user\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"username\": \"UserName_FirstName\",\n        \"email\": \"addr1@mail.com\",\n        \"address\": \"Malta\",\n        \"created_at\": \"2024-01-20 02:35:38.707086231 +1100 AEDT m=+64.181894299\",\n        \"updated_at\": \"2024-01-20 02:35:38.707086319 +1100 AEDT m=+64.181894370\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "/um/delete-user/{userId}",
@@ -157,19 +374,94 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/um/delete-user/1",
+							"raw": "{{host}}/um/delete-user/{userId}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"um",
 								"delete-user",
-								"1"
+								"{userId}"
 							]
 						},
 						"description": "This API is used to delete a specific user from the system."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Failure - Can't delete own account",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/um/delete-user/cc5cc74f-6017-4d3b-a16a-cccfc379c38f",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"um",
+										"delete-user",
+										"cc5cc74f-6017-4d3b-a16a-cccfc379c38f"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:37:38 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Cannot delete your own account\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/um/delete-user/09b53e82-b5e6-4636-a9de-9da8a4c9306a",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"um",
+										"delete-user",
+										"09b53e82-b5e6-4636-a9de-9da8a4c9306a"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:38:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User deleted successfully\"\n}"
+						}
+					]
 				}
 			],
 			"description": "The section provides API related to user operations."
@@ -204,7 +496,54 @@
 						},
 						"description": "This API is used to add account details for a specific user.\n\nRequest Parameters:\n\n- accountNumber\n    - Mandatory\n    - Integer\n- bankName\n    - Mandatory\n    - String"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountNumber\": 128000001,\n    \"bankName\": \"some-bank-name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/am/add-account/cc5cc74f-6017-4d3b-a16a-cccfc379c38f",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"am",
+										"add-account",
+										"cc5cc74f-6017-4d3b-a16a-cccfc379c38f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:38:52 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "250"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accountId\": 1,\n    \"userId\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n    \"accountNumber\": 128000001,\n    \"bankName\": \"some-bank-name\",\n    \"balance\": 0,\n    \"status\": \"Pending\",\n    \"created_at\": \"2024-01-20T02:38:52.313893945+11:00\",\n    \"updated_at\": \"2024-01-20T02:38:52.313893945+11:00\"\n}"
+						}
+					]
 				},
 				{
 					"name": "/am/add-self-account",
@@ -232,7 +571,53 @@
 						},
 						"description": "This API is used to create account for the logged in user.\n\nRequest Parameters:\n\n- accountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- bankName\n    \n    - Mandatory\n        \n    - String"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountNumber\": 128000002,\n    \"bankName\": \"some-bank-name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/am/add-self-account",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"am",
+										"add-self-account"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:39:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "250"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accountId\": 3,\n    \"userId\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n    \"accountNumber\": 128000002,\n    \"bankName\": \"some-bank-name\",\n    \"balance\": 0,\n    \"status\": \"Pending\",\n    \"created_at\": \"2024-01-20T02:39:14.656096657+11:00\",\n    \"updated_at\": \"2024-01-20T02:39:14.656096657+11:00\"\n}"
+						}
+					]
 				},
 				{
 					"name": "/am/delete-account/{accId}",
@@ -252,7 +637,45 @@
 						},
 						"description": "This API is used to delete specific account number."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/am/delete-account/3",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"am",
+										"delete-account",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:39:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Account deleted successfully\"\n}"
+						}
+					]
 				},
 				{
 					"name": "/am/get-accounts",
@@ -271,7 +694,44 @@
 						},
 						"description": "This API is used to fetch all accounts available in the system."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/am/get-accounts",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"am",
+										"get-accounts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:39:52 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "516"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4\",\n        \"user_id\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n        \"account_number\": \"128000002\",\n        \"bank_name\": \"some-bank-name\",\n        \"balance\": \"0\",\n        \"status\": \"Pending\",\n        \"created_at\": \"2024-01-20 02:39:48.529144 +1100 AEDT\",\n        \"updated_at\": \"2024-01-20 02:39:48.529144 +1100 AEDT\"\n    },\n    {\n        \"id\": \"1\",\n        \"user_id\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n        \"account_number\": \"128000001\",\n        \"bank_name\": \"some-bank-name\",\n        \"balance\": \"0\",\n        \"status\": \"Approved\",\n        \"created_at\": \"2024-01-20 02:38:52.313893 +1100 AEDT\",\n        \"updated_at\": \"2024-01-20 02:39:52.327504 +1100 AEDT\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "/am/get-personal-account",
@@ -290,7 +750,44 @@
 						},
 						"description": "This API is used to fetch all the personal accounts of the logged in user."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/am/get-personal-account",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"am",
+										"get-personal-account"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:40:00 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "516"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4\",\n        \"user_id\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n        \"account_number\": \"128000002\",\n        \"bank_name\": \"some-bank-name\",\n        \"balance\": \"0\",\n        \"status\": \"Pending\",\n        \"created_at\": \"2024-01-20 02:39:48.529144 +1100 AEDT\",\n        \"updated_at\": \"2024-01-20 02:39:48.529144 +1100 AEDT\"\n    },\n    {\n        \"id\": \"1\",\n        \"user_id\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n        \"account_number\": \"128000001\",\n        \"bank_name\": \"some-bank-name\",\n        \"balance\": \"0\",\n        \"status\": \"Approved\",\n        \"created_at\": \"2024-01-20 02:38:52.313893 +1100 AEDT\",\n        \"updated_at\": \"2024-01-20 02:39:52.327504 +1100 AEDT\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "/am/get-account/{accountId}",
@@ -310,26 +807,45 @@
 						},
 						"description": "This API is used to fetch the account details of a specific account number."
 					},
-					"response": []
-				},
-				{
-					"name": "/am/update-account/{accountId}",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/am/update-account/{accountId}",
-							"host": [
-								"{{host}}"
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/am/get-account/1",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"am",
+										"get-account",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:40:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "257"
+								}
 							],
-							"path": [
-								"am",
-								"update-account",
-								"{accountId}"
-							]
+							"cookie": [],
+							"body": "{\n    \"id\": \"1\",\n    \"user_id\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n    \"account_number\": \"128000001\",\n    \"bank_name\": \"some-bank-name\",\n    \"balance\": \"0\",\n    \"status\": \"Approved\",\n    \"created_at\": \"2024-01-20 02:38:52.313893 +1100 AEDT\",\n    \"updated_at\": \"2024-01-20 02:39:52.327504 +1100 AEDT\"\n}"
 						}
-					},
-					"response": []
+					]
 				}
 			],
 			"description": "This section provides API related to Account management"
@@ -354,7 +870,44 @@
 						},
 						"description": "This API fetches all the transactions performed in the system."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/tm/get-transactions",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tm",
+										"get-transactions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:42:10 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "752"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"trxId\": 2,\n        \"userId\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n        \"accountId\": 1,\n        \"flow\": \"Withdraw\",\n        \"amount\": 100,\n        \"details\": \"Withdrawal operation\",\n        \"status\": \"Pending\",\n        \"created_at\": \"2024-01-20T02:41:14.268577+11:00\",\n        \"updated_at\": \"2024-01-20T02:41:14.268577+11:00\"\n    },\n    {\n        \"trxId\": 1,\n        \"userId\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n        \"accountId\": 1,\n        \"flow\": \"Deposit\",\n        \"amount\": 1001,\n        \"details\": \"Deposit operation\",\n        \"status\": \"Approved\",\n        \"created_at\": \"2024-01-20T02:40:57.307958+11:00\",\n        \"updated_at\": \"2024-01-20T02:41:57.324323+11:00\"\n    },\n    {\n        \"trxId\": 3,\n        \"userId\": \"cc5cc74f-6017-4d3b-a16a-cccfc379c38f\",\n        \"accountId\": 1,\n        \"flow\": \"Self-transfer\",\n        \"amount\": 100,\n        \"details\": \"128000002\",\n        \"status\": \"Pending\",\n        \"created_at\": \"2024-01-20T02:42:00.697109+11:00\",\n        \"updated_at\": \"2024-01-20T02:42:00.697109+11:00\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "/tm/deposit",
@@ -382,7 +935,98 @@
 						},
 						"description": "This API is used to deposit funds into the specified account.\n\nRequest Parameters:\n\n- accountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- amount\n    \n    - Mandatory\n        \n    - Integer"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Failure - KYC not verified",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountNumber\": 128000002,\n    \"amount\": 1001\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/tm/deposit",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tm",
+										"deposit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:40:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"KYC not verified\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountNumber\": 128000001,\n    \"amount\": 1001\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/tm/deposit",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tm",
+										"deposit"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:40:57 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Message\": \"Deposit operation completed successfully\"\n}"
+						}
+					]
 				},
 				{
 					"name": "/tm/withdraw",
@@ -410,7 +1054,98 @@
 						},
 						"description": "This API is used to deposit funds into the specified account.\n\nRequest Parameters:\n\n- accountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- amount\n    \n    - Mandatory\n        \n    - Integer"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fromAccountNumber\": 128000001,\n    \"amount\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/tm/withdraw",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tm",
+										"withdraw"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:41:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Message\": \"Withdraw operation completed successfully\"\n}"
+						},
+						{
+							"name": "Failure",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fromAccountNumber\": 128000001,\n    \"amount\": 1000000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/tm/withdraw",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tm",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:41:36 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Insufficient balance\"\n}"
+						}
+					]
 				},
 				{
 					"name": "/tm/self-transfer",
@@ -438,7 +1173,53 @@
 						},
 						"description": "This API is used to transfer funds between accounts owned by logged in user.\n\nRequest Parameters:\n\n- fromAccountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- toAccountNumber\n    \n    - Mandatory\n        \n    - Integer\n        \n- amount\n    \n    - Mandatory\n        \n    - Integer"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fromAccountNumber\": 128000001,\n    \"toAccountNumber\": 128000002,\n    \"amount\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/tm/self-transfer",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"tm",
+										"self-transfer"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 15:42:00 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Message\": \"Self-transfer operation completed successfully\"\n}"
+						}
+					]
 				}
 			],
 			"description": "This sections provides all the APIs related to Transaction management."
